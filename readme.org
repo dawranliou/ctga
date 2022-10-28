@@ -1,0 +1,23 @@
+* CTGA
+
+A game made for [[https://itch.io/jam/lisp-game-jam-2022][Lisp Game Jam 2022]] built with [[https://love2d.org/][Love2d]] and [[https://fennel-lang.org/][Fennel]].  (Thanks to the
+[[https://gitlab.com/alexjgriffith/min-love2d-fennel][alexjgriffith/min-love2d-fennel]] starter project!)
+
+Four monsters are trapped in the Amazon Jungle.  Each of them can do a special
+move.  They have to work together to find a way out!
+
+- C
+- T
+- G
+- A
+
+* Emacs Setup
+
+Once you install the latest version of [[https://gitlab.com/technomancy/fennel-mode][fennel-mode]], you can run
+=C-u M-x fennel-repl= followed by =love .= to launch a repl.
+
+* Release Process
+
+Use =make linux=, =make windows=, =make mac=, or =make web= to create targets
+for each platform, or =make release= to make all four. Check out the makefile
+for more commands, and remember to edit your game data in it!
