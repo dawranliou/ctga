@@ -15,12 +15,13 @@
       (false msg) (print mode-name "activate error" msg))))
 
 (fn love.load [args]
-  (set-mode :mode-intro)
+  (set-mode :mode-title)
+  (love.graphics.setFont (love.graphics.newFont "assets/FSEX300.ttf" 32))
   (canvas:setFilter "nearest" "nearest")
   (when (~= :web (. args 1)) (repl.start)))
 
 (fn safely [f]
-  (xpcall f #(set-mode :error-mode mode-name $ (fennel.traceback))))
+  (xpcall f #(set-mode :mode-error mode-name $ (fennel.traceback))))
 
 (fn love.draw []
   ;; the canvas allows you to get sharp pixel-art style scaling; if you
