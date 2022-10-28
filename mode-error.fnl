@@ -23,6 +23,7 @@ Press space to return to the previous mode after reloading in the repl.")
     :space (set-mode state.old-mode)))
 
 (fn activate [old-mode msg traceback]
+  (love.graphics.setNewFont 12)
   (print msg)
   (print traceback)
   (set state {: old-mode : msg : traceback}))
