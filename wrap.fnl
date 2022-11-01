@@ -41,5 +41,13 @@
 (fn love.keypressed [key]
   (if (and (love.keyboard.isDown "lctrl" "rctrl" "capslock") (= key "q"))
       (love.event.quit)
+      (= key "f1")
+      (safely #(set-mode mode-name))
+      (= key "f2")
+      (safely #(set-mode :mode-title))
+      (= key "f3")
+      (safely #(set-mode :mode-play))
+      (= key "f4")
+      (safely #(set-mode :mode-endind))
       ;; add what each keypress should do in each mode
       (safely #(mode.keypressed key set-mode))))
