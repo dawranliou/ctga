@@ -9,6 +9,8 @@
 (var (mode mode-name) nil)
 
 (fn set-mode [new-mode-name ...]
+  (when (and mode mode.deactivate)
+    (mode.deactivate))
   (set (mode mode-name) (values (require new-mode-name) new-mode-name))
   (when mode.activate
     (match (pcall mode.activate ...)
