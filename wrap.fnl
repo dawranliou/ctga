@@ -16,7 +16,6 @@
 
 (fn love.load [args]
   (set-mode :mode-title)
-  (love.graphics.setFont (love.graphics.newFont "assets/FSEX300.ttf" 32))
   (canvas:setFilter "nearest" "nearest")
   (when (~= :web (. args 1)) (repl.start)))
 

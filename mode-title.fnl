@@ -1,11 +1,15 @@
 (var *frame-counter* 0)
 (var *title-sheet* nil)
 (var *frames* [])
-(var *count-down* 3)
+(var *count-down* 1)
+(var *font* nil)
 (local (w h) (love.window.getMode))
 
 (fn activate []
-  (love.graphics.setNewFont 32)
+  (set *frame-counter* 0)
+  (set *count-down* 1)
+  (set *font* (love.graphics.newFont "assets/FSEX300.ttf" 32))
+  (love.graphics.setFont *font*)
   (love.graphics.setDefaultFilter "nearest" "nearest")
   (set *title-sheet*
        (love.graphics.newImage "assets/title-Sheet.png"))
@@ -24,7 +28,7 @@
   (let [current-frame (+ 1 (% (math.floor (/ *frame-counter* 6)) 3))
         current-quad (. *frames* current-frame)]
     (when (< *count-down* 0)
-      (love.graphics.printf "press <x> to start" 0 480 w :center))
+      (love.graphics.printf "press <x> to start" 0 450 w :center))
     (when current-quad
       (love.graphics.draw *title-sheet* current-quad
                           (- (/ w 2) (/ (* 64 5) 2))
