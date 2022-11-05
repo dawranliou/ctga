@@ -1,5 +1,7 @@
 * CTGA
 
+[[file:assets/ctga_title.gif]]
+
 A game made for [[https://itch.io/jam/lisp-game-jam-2022][Lisp Game Jam 2022]] built with [[https://love2d.org/][Love2d]] and [[https://fennel-lang.org/][Fennel]].
 
 * Credits
