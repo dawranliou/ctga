@@ -1,20 +1,16 @@
+(local {: assets} (require :assets))
 (var *frame-counter* 0)
-(var *title-sheet* nil)
 (var *frames* [])
 (var *count-down* 1)
-(var *font* nil)
 (local (w h) (love.window.getMode))
 
 (fn activate []
+  (assets.music:play)
   (set *frame-counter* 0)
   (set *count-down* 1)
-  (set *font* (love.graphics.newFont "assets/FSEX300.ttf" 24))
-  (love.graphics.setFont *font*)
-  (love.graphics.setDefaultFilter "nearest" "nearest")
-  (set *title-sheet*
-       (love.graphics.newImage "assets/title-Sheet.png"))
-  (let [image-w (*title-sheet*:getWidth)
-        image-h (*title-sheet*:getHeight)]
+  (love.graphics.setFont assets.font)
+  (let [image-w (assets.title-sheet:getWidth)
+        image-h (assets.title-sheet:getHeight)]
     (set *frames* [(love.graphics.newQuad 0 0 64 64 image-w image-h)
                    (love.graphics.newQuad 64 0 64 64 image-w image-h)
                    (love.graphics.newQuad 128 0 64 64 image-w image-h)])))
@@ -31,7 +27,7 @@
                (= 0 (% (math.floor (/ *frame-counter* 30)) 2)))
       (love.graphics.printf "press <x> to start" 0 500 w :center))
     (when current-quad
-      (love.graphics.draw *title-sheet* current-quad
+      (love.graphics.draw assets.title-sheet current-quad
                           (- (/ w 2) (/ (* 64 5) 2))
                           (- (/ h 2) (/ (* 64 5) 2))
                           0 5))))

@@ -10,7 +10,7 @@
 (local +scale+ 3)
 (local +move-frames+ 6)
 
-(var *sprite-sheet* nil)
+(local {: assets} (require :assets))
 
 (var *entities* [])
 (var *entity-count* 0)
@@ -136,14 +136,14 @@
 
 (fn minion [name idx row col ...]
   (let [frames [(love.graphics.newQuad 0 (* idx 16) 16 16
-                                       (*sprite-sheet*:getWidth)
-                                       (*sprite-sheet*:getHeight))
+                                       (assets.sprite-sheet:getWidth)
+                                       (assets.sprite-sheet:getHeight))
                 (love.graphics.newQuad 16 (* idx 16) 16 16
-                                       (*sprite-sheet*:getWidth)
-                                       (*sprite-sheet*:getHeight))]]
+                                       (assets.sprite-sheet:getWidth)
+                                       (assets.sprite-sheet:getHeight))]]
     (entity name
             {:col col :row row :x 0 :y 0 :z 1
-             :image *sprite-sheet*
+             :image assets.sprite-sheet
              :animations frames
              :quad (. frames 1)
              :cooldown 0
@@ -203,7 +203,6 @@
     (set *frames* 0)))
 
 (fn activate []
-  (set *sprite-sheet* (love.graphics.newImage "assets/monsters.png"))
   (set *current-level* nil)
   (load-next-level))
 

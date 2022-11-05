@@ -1,8 +1,8 @@
 (local fennel (require :lib.fennel))
 (local repl (require :lib.stdio))
+(local assets (require :assets))
 (local canvas (let [(w h) (love.window.getMode)]
                 (love.graphics.newCanvas w h)))
-
 (var scale 1)
 
 ;; set the first mode
@@ -15,6 +15,7 @@
       (false msg) (print mode-name "activate error" msg))))
 
 (fn love.load [args]
+  (assets.init)
   (set-mode :mode-title)
   (canvas:setFilter "nearest" "nearest")
   (when (~= :web (. args 1)) (repl.start)))

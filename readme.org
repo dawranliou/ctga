@@ -2,6 +2,11 @@
 
 A game made for [[https://itch.io/jam/lisp-game-jam-2022][Lisp Game Jam 2022]] built with [[https://love2d.org/][Love2d]] and [[https://fennel-lang.org/][Fennel]].
 
+* Credits
+- Code by me
+- Art by me
+- Music by [[https://opengameart.org/users/maou][MAOU]]: [[https://opengameart.org/content/galactic-knight-chiptune][Galactic Knight (Chiptune)]]
+
 * Devlog
 
 ** <2022-11-05 Sat> Day 9
@@ -25,6 +30,7 @@ A game made for [[https://itch.io/jam/lisp-game-jam-2022][Lisp Game Jam 2022]] b
 - [X] Title mode
 - [X] Game play mode
 - [X] End credits mode
+- [ ] SFX
 - [ ] Transition animation
 - [X] Sprite animation (on a single global clock)
 - [ ] Levels
