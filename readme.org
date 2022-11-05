@@ -11,9 +11,12 @@ A game made for [[https://itch.io/jam/lisp-game-jam-2022][Lisp Game Jam 2022]] b
 
 * Devlog
 
-** <2022-11-05 Sat> Day 9
+** <2022-11-05 Sat> Day 9 (3 hrs)
 - Cosmetic stuff
 - Load game levels
+- Audio
+- Don't want to tweak the game loops anymore.  Will focus on level design
+  tomorrow.
 
 ** <2022-11-01 Tue> Day 5 (4 hrs)
 - Settle on the main game mechanics - Neko puzzle
