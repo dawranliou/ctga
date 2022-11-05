@@ -9,8 +9,6 @@
 (var (mode mode-name) nil)
 
 (fn set-mode [new-mode-name ...]
-  (when (and mode mode.deactivate)
-    (mode.deactivate))
   (set (mode mode-name) (values (require new-mode-name) new-mode-name))
   (when mode.activate
     (match (pcall mode.activate ...)
@@ -49,6 +47,6 @@
       (= key "f3")
       (safely #(set-mode :mode-play))
       (= key "f4")
-      (safely #(set-mode :mode-endind))
+      (safely #(set-mode :mode-ending))
       ;; add what each keypress should do in each mode
       (safely #(mode.keypressed key set-mode))))

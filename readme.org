@@ -4,6 +4,10 @@ A game made for [[https://itch.io/jam/lisp-game-jam-2022][Lisp Game Jam 2022]] b
 
 * Devlog
 
+** <2022-11-05 Sat> Day 9
+- Cosmetic stuff
+- Load game levels
+
 ** <2022-11-01 Tue> Day 5 (4 hrs)
 - Settle on the main game mechanics - Neko puzzle
 - A sample testing level
@@ -19,8 +23,8 @@ A game made for [[https://itch.io/jam/lisp-game-jam-2022][Lisp Game Jam 2022]] b
 
 * TODOs
 - [X] Title mode
-- [ ] Game play mode
-- [ ] End credits mode
+- [X] Game play mode
+- [X] End credits mode
 - [ ] Transition animation
 - [X] Sprite animation (on a single global clock)
 - [ ] Levels

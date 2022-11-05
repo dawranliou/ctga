@@ -1,15 +1,16 @@
 (var *frames* 0)
+(var *current-level* nil)
 (var *level* nil)
 (var *n-row* 0)
 (var *n-col* 0)
 (var *grid-size* 0)
+(var *state* :play)
 (local (w h _flags) (love.window.getMode))
 (local +margin+ 64)
 (local +scale+ 3)
 (local +move-frames+ 6)
 
 (var *sprite-sheet* nil)
-(var *win* false)
 
 (var *entities* [])
 (var *entity-count* 0)
@@ -123,29 +124,13 @@
         (when (< e.cooldown 0)
           (table.remove *entities* i))))))
 
-(fn run-win-checker-system []
-  (set *win* (accumulate [win true
-                          _ e (ipairs *entities*)
-                          &until (not win)]
-               (or e.components.input
-                   e.components.rescued))))
-
-(fn minion [name idx row col ...]
-  (entity name
-          {:col col :row row :x 0 :y 0 :z 1
-           :image *sprite-sheet*
-           :animations [(love.graphics.newQuad 0 (* idx 16) 16 16
-                                               (*sprite-sheet*:getWidth)
-                                               (*sprite-sheet*:getHeight))
-                        (love.graphics.newQuad 16 (* idx 16) 16 16
-                                               (*sprite-sheet*:getWidth)
-                                               (*sprite-sheet*:getHeight))]
-           :cooldown 0
-           :quad nil}
-          "animate" "render" "on-grid" "solid" ...))
 
 (fn load-level [filename]
+  (set *state* :play)
   (set *frames* 0)
+  (set *current-level* filename)
+  (for [i (length *entities*) 1 -1]
+    (table.remove *entities* i))
   (set *level* (icollect [line (love.filesystem.lines filename)]
                  (icollect [tile (string.gmatch line "%g")]
                    tile)))
@@ -161,15 +146,55 @@
           "C" (minion "C" 0 row col (when upper-case? "input"))
           "T" (minion "T" 1 row col (when upper-case? "input"))
           "G" (minion "G" 2 row col (when upper-case? "input"))
-          "A" (minion "A" 3 row col (when upper-case? "input")))))))
+          "A" (minion "A" 3 row col (when upper-case? "input"))))))
+  :loaded)
+
+(fn load-next-level []
+  (let [next-level (match *current-level*
+                     nil "data/tut-1.txt"
+                     "data/tut-1.txt" "data/tut-2.txt"
+                     ;; "data/tut-2.txt" "data/level-1.txt"
+                     ;; "data/level-1.txt" "data/level-2.txt"
+                     ;; "data/level-2.txt" "data/level-3.txt"
+                     ;; "data/level-3.txt" "data/level-4.txt"
+                     ;; "data/level-4.txt" "data/level-5.txt"
+                     ;; "data/level-5.txt" "data/level-6.txt"
+                     ;; "data/level-6.txt" "data/level-7.txt"
+                     ;; "data/level-7.txt" "data/level-8.txt"
+                     ;; "data/level-8.txt" "data/level-9.txt"
+                     ;; "data/level-9.txt" "data/level-10.txt"
+                     )]
+    (when next-level
+      (load-level next-level))))
+
+(fn run-win-checker-system []
+  (when (accumulate [win true
+                     _ e (ipairs *entities*)
+                     &until (not win)]
+          (or e.components.input
+              e.components.rescued))
+    (set *state* :win)
+    (set *frames* 0)
+    (load-next-level)))
+
+(fn minion [name idx row col ...]
+  (entity name
+          {:col col :row row :x 0 :y 0 :z 1
+           :image *sprite-sheet*
+           :animations [(love.graphics.newQuad 0 (* idx 16) 16 16
+                                               (*sprite-sheet*:getWidth)
+                                               (*sprite-sheet*:getHeight))
+                        (love.graphics.newQuad 16 (* idx 16) 16 16
+                                               (*sprite-sheet*:getWidth)
+                                               (*sprite-sheet*:getHeight))]
+           :cooldown 0
+           :quad nil}
+          "animate" "render" "on-grid" "solid" ...))
 
 (fn activate []
   (set *sprite-sheet* (love.graphics.newImage "assets/monsters.png"))
-  (load-level "data/test-1.txt"))
-
-(fn deactivate []
-  (for [i (length *entities*) 1 -1]
-    (table.remove *entities* i)))
+  (set *current-level* nil)
+  (load-next-level))
 
 (fn draw-grid []
   (love.graphics.setColor 0.5 0.5 0.5)
@@ -181,12 +206,20 @@
                                48 48)))
   (love.graphics.setColor 1 1 1))
 
-(fn update [dt]
+(fn update [dt set-mode]
   (set *frames* (+ 1 *frames*))
+  (match *state*
+    :play (run-win-checker-system)
+    :win (when (< 120 *frames*)
+           (print "into-ending")
+           (set *state* :into-ending))
+    :into-ending (when (< 120 *frames*)
+                   (print "mode ending")
+                   (set-mode :mode-ending)))
+
   (run-animation-system)
   (run-grid->loc-system)
-  (run-rescued-system)
-  (run-win-checker-system))
+  (run-rescued-system))
 
 (fn draw [message]
   ;; (love.graphics.print (love.timer.getFPS) 10 10)
@@ -197,7 +230,7 @@
   (draw-grid)
   (run-render-system)
 
-  (when *win*
+  (when (= *state* :win)
     (love.graphics.setColor 0 0 0 0.5)
     (love.graphics.rectangle "fill" 0 0 w h)
     (love.graphics.setColor 1 1 1)
@@ -207,7 +240,6 @@
   (run-input-system key))
 
 {: activate
- : deactivate
  : update
  :entities *entities*
  : draw
