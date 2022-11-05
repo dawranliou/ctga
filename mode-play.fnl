@@ -4,7 +4,7 @@
 (var *n-col* 0)
 (var *grid-size* 0)
 (local (w h _flags) (love.window.getMode))
-(local +margin+ 32)
+(local +margin+ 64)
 (local +scale+ 3)
 (local +move-frames+ 6)
 
