@@ -49,11 +49,21 @@
             (set (e.y e.x) (values target-y target-x)))))))
 
 (fn run-render-system []
+  ;; (each [_ e (ipairs *entities*)]
+  ;;   (when (and e.components.input)
+  ;;     (love.graphics.setColor 0.8 0.8 0.8 0.5)
+  ;;     (love.graphics.rectangle "line" e.x e.y 48 48)))
+  ;; (love.graphics.setColor 1 1 1)
+  ;; (love.graphics.setLineWidth 1)
   (each [_ e (ipairs *entities*)]
-    (when (and e.components.render (= 0 e.z))
+    (when (and e.components.render
+               e.quad
+               (= 0 e.z))
       (love.graphics.draw e.image e.quad e.x e.y 0 +scale+)))
   (each [_ e (ipairs *entities*)]
-    (when (and e.components.render (= 1 e.z))
+    (when (and e.components.render
+               e.quad
+               (= 1 e.z))
       (love.graphics.draw e.image e.quad e.x e.y 0 +scale+)))
   ;; (each [_ e (ipairs *entities*)]
   ;;   (when (and e.components.render (= 2 e.z))
@@ -124,6 +134,21 @@
         (when (< e.cooldown 0)
           (table.remove *entities* i))))))
 
+(fn minion [name idx row col ...]
+  (let [frames [(love.graphics.newQuad 0 (* idx 16) 16 16
+                                       (*sprite-sheet*:getWidth)
+                                       (*sprite-sheet*:getHeight))
+                (love.graphics.newQuad 16 (* idx 16) 16 16
+                                       (*sprite-sheet*:getWidth)
+                                       (*sprite-sheet*:getHeight))]]
+    (entity name
+            {:col col :row row :x 0 :y 0 :z 1
+             :image *sprite-sheet*
+             :animations frames
+             :quad (. frames 1)
+             :cooldown 0
+             :quad nil}
+            "animate" "render" "on-grid" "solid" ...)))
 
 (fn load-level [filename]
   (set *state* :play)
@@ -164,8 +189,9 @@
                      ;; "data/level-8.txt" "data/level-9.txt"
                      ;; "data/level-9.txt" "data/level-10.txt"
                      )]
-    (when next-level
-      (load-level next-level))))
+    (if next-level
+        (load-level next-level)
+        (set *state* :win))))
 
 (fn run-win-checker-system []
   (when (accumulate [win true
@@ -173,23 +199,8 @@
                      &until (not win)]
           (or e.components.input
               e.components.rescued))
-    (set *state* :win)
-    (set *frames* 0)
-    (load-next-level)))
-
-(fn minion [name idx row col ...]
-  (entity name
-          {:col col :row row :x 0 :y 0 :z 1
-           :image *sprite-sheet*
-           :animations [(love.graphics.newQuad 0 (* idx 16) 16 16
-                                               (*sprite-sheet*:getWidth)
-                                               (*sprite-sheet*:getHeight))
-                        (love.graphics.newQuad 16 (* idx 16) 16 16
-                                               (*sprite-sheet*:getWidth)
-                                               (*sprite-sheet*:getHeight))]
-           :cooldown 0
-           :quad nil}
-          "animate" "render" "on-grid" "solid" ...))
+    (set *state* :level-cleared)
+    (set *frames* 0)))
 
 (fn activate []
   (set *sprite-sheet* (love.graphics.newImage "assets/monsters.png"))
@@ -208,18 +219,19 @@
 
 (fn update [dt set-mode]
   (set *frames* (+ 1 *frames*))
-  (match *state*
-    :play (run-win-checker-system)
-    :win (when (< 120 *frames*)
-           (print "into-ending")
-           (set *state* :into-ending))
-    :into-ending (when (< 120 *frames*)
-                   (print "mode ending")
-                   (set-mode :mode-ending)))
 
   (run-animation-system)
   (run-grid->loc-system)
-  (run-rescued-system))
+  (run-rescued-system)
+
+  (match *state*
+    :play (run-win-checker-system)
+    :level-cleared (when (< 60 *frames*)
+                     (load-next-level))
+    :win (when (< 120 *frames*)
+           (set *state* :into-ending))
+    :into-ending (when (< 120 *frames*)
+                   (set-mode :mode-ending))))
 
 (fn draw [message]
   ;; (love.graphics.print (love.timer.getFPS) 10 10)
@@ -230,14 +242,25 @@
   (draw-grid)
   (run-render-system)
 
-  (when (= *state* :win)
-    (love.graphics.setColor 0 0 0 0.5)
-    (love.graphics.rectangle "fill" 0 0 w h)
-    (love.graphics.setColor 1 1 1)
-    (love.graphics.printf "WIN" 0 (/ h 2) w :center)))
+  ;; HUD
+  (love.graphics.printf *current-level* 0 500 w :center)
+
+  (match *state*
+    :level-cleared
+    (do
+      (love.graphics.setColor 0 0 0 0.5)
+      (love.graphics.rectangle "fill" 0 0 w h)
+      (love.graphics.setColor 1 1 1)
+      (love.graphics.printf "AWESOME!" 0 (/ h 2) w :center))
+    :win
+    (do
+      (love.graphics.setColor 0 0 0 0.5)
+      (love.graphics.rectangle "fill" 0 0 w h)
+      (love.graphics.setColor 1 1 1)
+      (love.graphics.printf "YOU WIN!" 0 (/ h 2) w :center))))
 
 (fn keypressed [key set-mode]
-  (run-input-system key))
+  (when (= *state* :play) (run-input-system key)))
 
 {: activate
  : update
