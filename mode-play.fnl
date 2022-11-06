@@ -218,6 +218,21 @@
     "data/level-9.txt" "9/10"
     "data/level-10.txt" "10/10"))
 
+(fn get-level-desc []
+  (match *current-level*
+    "data/tut-1.txt" "→"
+    "data/tut-2.txt" "→ →"
+    "data/level-1.txt" nil
+    "data/level-2.txt" nil
+    "data/level-3.txt" nil
+    "data/level-4.txt" nil
+    "data/level-5.txt" nil
+    "data/level-6.txt" nil
+    "data/level-7.txt" nil
+    "data/level-8.txt" nil
+    "data/level-9.txt" nil
+    "data/level-10.txt" "Final Puzzle"))
+
 (fn run-win-checker-system []
   (when (accumulate [win true
                      _ e (ipairs *entities*)
@@ -273,7 +288,10 @@
   (run-render-system)
 
   ;; HUD
-  (love.graphics.printf (or (get-level-title) "") 0 550 w :center)
+  (love.graphics.printf (or (get-level-title) "") 0 32 w :center)
+  (love.graphics.setFont assets.font-large)
+  (love.graphics.printf (or (get-level-desc) "") 0 550 w :center)
+  (love.graphics.setFont assets.font)
 
   (match *state*
     :level-cleared
