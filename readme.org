@@ -9,6 +9,7 @@ download the game at https://dawranliou.itch.io/ctga.
 - Code by me
 - Art by me
 - Music by [[https://opengameart.org/users/maou][MAOU]]: [[https://opengameart.org/content/galactic-knight-chiptune][Galactic Knight (Chiptune)]]
+  - License notice: [[https://creativecommons.org/licenses/by/4.0/][CC-BY 4.0]]
 - SFX by me and Isabella
 
 * Devlog
@@ -68,3 +69,8 @@ for more commands, and remember to edit your game data in it!
 [[file:screenshots/tutorial-1.png]]
 
 [[file:screenshots/tutorial-3.png]]
+
+* Licences
+
+- [[file:license.txt][GPL]] for code
+- [[https://creativecommons.org/licenses/by-sa/4.0/][CC BY-SA 4.0]] for art
