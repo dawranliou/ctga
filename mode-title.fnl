@@ -40,6 +40,7 @@
       (set *frame-counter* 0)))
 
 (fn keypressed [key set-mode]
+  (assets.sfx1:play)
   (match key
     "x" (when (< *count-down* 0) (set-mode :mode-play))))
 
