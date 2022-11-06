@@ -194,7 +194,7 @@
                      "data/level-3.txt" "data/level-4.txt"
                      "data/level-4.txt" "data/level-5.txt"
                      "data/level-5.txt" "data/level-6.txt"
-                     ;; "data/level-6.txt" "data/level-7.txt"
+                     "data/level-6.txt" "data/level-7.txt"
                      ;; "data/level-7.txt" "data/level-8.txt"
                      ;; "data/level-8.txt" "data/level-9.txt"
                      ;; "data/level-9.txt" "data/level-10.txt"
@@ -228,7 +228,7 @@
     "data/level-4.txt" "The Lone Wolf"
     "data/level-5.txt" "Satellite"
     "data/level-6.txt" "So Close"
-    "data/level-7.txt" nil
+    "data/level-7.txt" "Marching"
     "data/level-8.txt" nil
     "data/level-9.txt" nil
     "data/level-10.txt" "Final Puzzle"))
