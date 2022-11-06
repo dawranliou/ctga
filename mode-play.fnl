@@ -188,7 +188,7 @@
   (let [next-level (match *current-level*
                      nil "data/tut-1.txt"
                      "data/tut-1.txt" "data/tut-2.txt"
-                     ;; "data/tut-2.txt" "data/level-1.txt"
+                     "data/tut-2.txt" "data/level-1.txt"
                      ;; "data/level-1.txt" "data/level-2.txt"
                      ;; "data/level-2.txt" "data/level-3.txt"
                      ;; "data/level-3.txt" "data/level-4.txt"
