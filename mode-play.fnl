@@ -222,7 +222,7 @@
 (fn get-level-desc []
   (match *current-level*
     "data/tut-1.txt" "→"
-    "data/tut-2.txt" "→ →"
+    "data/tut-2.txt" "→ ↑"
     "data/level-1.txt" "One for All"
     "data/level-2.txt" "One More Step"
     "data/level-3.txt" "R to Restart"
