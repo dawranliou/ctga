@@ -196,7 +196,7 @@
                      "data/level-5.txt" "data/level-6.txt"
                      "data/level-6.txt" "data/level-7.txt"
                      "data/level-7.txt" "data/level-8.txt"
-                     ;; "data/level-8.txt" "data/level-9.txt"
+                     "data/level-8.txt" "data/level-9.txt"
                      ;; "data/level-9.txt" "data/level-10.txt"
                      )]
     (if next-level
@@ -230,7 +230,7 @@
     "data/level-6.txt" "So Close"
     "data/level-7.txt" "Marching"
     "data/level-8.txt" "Crowded"
-    "data/level-9.txt" nil
+    "data/level-9.txt" "Pingpong"
     "data/level-10.txt" "Final Puzzle"))
 
 (fn run-win-checker-system []
