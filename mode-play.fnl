@@ -88,11 +88,12 @@
       (set e.quad (. e.animations (+ 1 (% (math.floor (/ *frames* 24)) 2)))))))
 
 (fn target-entity-at [row col]
-  (accumulate [found false
+  (accumulate [found nil
                _ e (ipairs *entities*)
                &until found]
     (when (and (= e.row row)
                (= e.col col)
+               (not e.components.rescued)
                (not e.components.input))
       e)))
 
@@ -132,8 +133,6 @@
           (set target-entity.components.rescued true)
           (set target-entity.cooldown +move-frames+)
           (set target-entity.row (- target-entity.row 1))
-          ;; (set target-entity.row 1)
-          ;; (set target-entity.col 10)
           (set target-entity.x-orig target-entity.x)
           (set target-entity.y-orig target-entity.y))))))
 
@@ -193,7 +192,7 @@
                      "data/level-1.txt" "data/level-2.txt"
                      "data/level-2.txt" "data/level-3.txt"
                      "data/level-3.txt" "data/level-4.txt"
-                     ;; "data/level-4.txt" "data/level-5.txt"
+                     "data/level-4.txt" "data/level-5.txt"
                      ;; "data/level-5.txt" "data/level-6.txt"
                      ;; "data/level-6.txt" "data/level-7.txt"
                      ;; "data/level-7.txt" "data/level-8.txt"
@@ -227,7 +226,7 @@
     "data/level-2.txt" "One More Step"
     "data/level-3.txt" "R to Restart"
     "data/level-4.txt" "The Lone Wolf"
-    "data/level-5.txt" nil
+    "data/level-5.txt" "Satellite"
     "data/level-6.txt" nil
     "data/level-7.txt" nil
     "data/level-8.txt" nil
