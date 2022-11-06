@@ -2,6 +2,10 @@
 
 [[file:assets/ctga_title.gif]]
 
+[[file:screenshots/tutorial-1.png]]
+
+[[file:screenshots/tutorial-3.png]]
+
 A game made for [[https://itch.io/jam/lisp-game-jam-2022][Lisp Game Jam 2022]] built with [[https://love2d.org/][Love2d]] and [[https://fennel-lang.org/][Fennel]].
 
 * Credits
@@ -12,9 +16,10 @@ A game made for [[https://itch.io/jam/lisp-game-jam-2022][Lisp Game Jam 2022]] b
 
 * Devlog
 
-** <2022-11-06 Sun> Day 10
+** <2022-11-06 Sun> Day 10 (4 hrs)
 - SFX
-- Level designs
+- Level designs!
+- Bug fixes
 
 ** <2022-11-05 Sat> Day 9 (3 hrs)
 - Cosmetic stuff
