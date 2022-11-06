@@ -274,9 +274,14 @@
       (love.graphics.printf "YOU WIN!" 0 (/ h 2) w :center))))
 
 (fn keypressed [key set-mode]
-  (match (love.math.random 2)
-    1 (assets.sfx1:play)
-    2 (assets.sfx2:play))
+  (when (or (= key "up")
+            (= key "down")
+            (= key "left")
+            (= key "right"))
+    (match (love.math.random 3)
+      1 (assets.sfx1:play)
+      2 (assets.sfx2:play)
+      3 (assets.sfx3:play)))
   (when (= *state* :play) (run-input-system key)))
 
 {: activate

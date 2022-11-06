@@ -31,7 +31,9 @@
 
 (fn keypressed [key set-mode]
   (match key
-    "x" (when (<= *count-down* 0) (set-mode :mode-title))))
+    "x" (do
+          (assets.sfx3:play)
+          (when (<= *count-down* 0) (set-mode :mode-title)))))
 
 {: activate
  : draw
