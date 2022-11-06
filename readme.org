@@ -8,8 +8,12 @@ A game made for [[https://itch.io/jam/lisp-game-jam-2022][Lisp Game Jam 2022]] b
 - Code by me
 - Art by me
 - Music by [[https://opengameart.org/users/maou][MAOU]]: [[https://opengameart.org/content/galactic-knight-chiptune][Galactic Knight (Chiptune)]]
+- SFX by me and Isabella
 
 * Devlog
+
+** <2022-11-06 Sun> Day 10
+- SFX
 
 ** <2022-11-05 Sat> Day 9 (3 hrs)
 - Cosmetic stuff
