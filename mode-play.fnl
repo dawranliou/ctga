@@ -193,6 +193,21 @@
         (load-level next-level)
         (set *state* :win))))
 
+(fn get-level-title []
+  (match *current-level*
+    "data/tut-1.txt" "Tutorial 1/2"
+    "data/tut-2.txt" "Tutorial 2/2"
+    "data/level-1.txt" "1/10"
+    "data/level-2.txt" "2/10"
+    "data/level-3.txt" "3/10"
+    "data/level-4.txt" "4/10"
+    "data/level-5.txt" "5/10"
+    "data/level-6.txt" "6/10"
+    "data/level-7.txt" "7/10"
+    "data/level-8.txt" "8/10"
+    "data/level-9.txt" "9/10"
+    "data/level-10.txt" "10/10"))
+
 (fn run-win-checker-system []
   (when (accumulate [win true
                      _ e (ipairs *entities*)
@@ -242,7 +257,7 @@
   (run-render-system)
 
   ;; HUD
-  (love.graphics.printf *current-level* 0 500 w :center)
+  (love.graphics.printf (get-level-title) 0 500 w :center)
 
   (match *state*
     :level-cleared
