@@ -14,6 +14,7 @@ A game made for [[https://itch.io/jam/lisp-game-jam-2022][Lisp Game Jam 2022]] b
 
 ** <2022-11-06 Sun> Day 10
 - SFX
+- Level designs
 
 ** <2022-11-05 Sat> Day 9 (3 hrs)
 - Cosmetic stuff
@@ -39,12 +40,12 @@ A game made for [[https://itch.io/jam/lisp-game-jam-2022][Lisp Game Jam 2022]] b
 - [X] Title mode
 - [X] Game play mode
 - [X] End credits mode
-- [ ] SFX
+- [X] SFX
 - [ ] Transition animation
 - [X] Sprite animation (on a single global clock)
 - [ ] Levels
-- [-] Game mechanics/rules
-  - [ ] =[ > Player | Fruit ] -> [ Player | Fruit ]=
+- [X] Game mechanics/rules
+  - +[ ] =[ > Player | Fruit ] -> [ Player | Fruit ]=+
   - [X] =[ > Player | ... | Fruit ] -> [ | ... | Player ]=
   - [X] =[ > Player ] -> [ Player ]=
 
