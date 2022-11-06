@@ -116,6 +116,11 @@
   found)
 
 (fn run-input-system [key]
+  (match key
+    "up" (table.sort *entities* #(< $1.row $2.row))
+    "down" (table.sort *entities* #(< $2.row $1.row))
+    "left" (table.sort *entities* #(< $1.col $2.col))
+    "right" (table.sort *entities* #(< $2.col $1.col)))
   (each [_ e (ipairs *entities*)]
     (when e.components.input
       (let [target-entity (match key
@@ -197,8 +202,7 @@
                      "data/level-6.txt" "data/level-7.txt"
                      "data/level-7.txt" "data/level-8.txt"
                      "data/level-8.txt" "data/level-9.txt"
-                     ;; "data/level-9.txt" "data/level-10.txt"
-                     )]
+                     "data/level-9.txt" "data/level-10.txt")]
     (if next-level
         (load-level next-level)
         (set *state* :win))))
