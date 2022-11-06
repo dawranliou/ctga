@@ -87,12 +87,13 @@
         (set e.cooldown (- e.cooldown 1)))
       (set e.quad (. e.animations (+ 1 (% (math.floor (/ *frames* 24)) 2)))))))
 
-(fn entity-at [row col]
+(fn target-entity-at [row col]
   (accumulate [found false
                _ e (ipairs *entities*)
                &until found]
     (when (and (= e.row row)
-               (= e.col col))
+               (= e.col col)
+               (not e.components.input))
       e)))
 
 (fn within-bound? [row col]
@@ -110,7 +111,7 @@
               (within-bound? target-row target-col))
     (set target-row (+ offset-row target-row))
     (set target-col (+ offset-col target-col))
-    (set found (entity-at target-row target-col)))
+    (set found (target-entity-at target-row target-col)))
   found)
 
 (fn run-input-system [key]
