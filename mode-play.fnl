@@ -309,6 +309,8 @@
       (love.graphics.printf "YOU WIN!" 0 (/ h 2) w :center))))
 
 (fn keypressed [key set-mode]
+  (when (= key "r")
+    (load-level *current-level*))
   (when (or (= key "up")
             (= key "down")
             (= key "left")
