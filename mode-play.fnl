@@ -49,12 +49,22 @@
             (set (e.y e.x) (values target-y target-x)))))))
 
 (fn run-render-system []
-  ;; (each [_ e (ipairs *entities*)]
-  ;;   (when (and e.components.input)
-  ;;     (love.graphics.setColor 0.8 0.8 0.8 0.5)
-  ;;     (love.graphics.rectangle "line" e.x e.y 48 48)))
-  ;; (love.graphics.setColor 1 1 1)
-  ;; (love.graphics.setLineWidth 1)
+  (love.graphics.setColor 0.8 0.8 0.8 0.8)
+  (love.graphics.setLineWidth 3)
+  (each [_ e (ipairs *entities*)]
+    (when (and e.components.input)
+      (love.graphics.polygon "line"
+                             (+ e.x 24) (+ e.y 36)
+                             (+ e.x 48) (+ e.y 48)
+                             (+ e.x 24) (+ e.y 60)
+                             e.x        (+ e.y 48))
+      ;; (love.graphics.ellipse "line"
+      ;;                        (+ e.x 24) (+ e.y 48)
+      ;;                        24 12)
+      ;; (love.graphics.rectangle "line" e.x e.y 48 48)
+      ))
+  (love.graphics.setColor 1 1 1)
+  (love.graphics.setLineWidth 1)
   (each [_ e (ipairs *entities*)]
     (when (and e.components.render
                e.quad
@@ -225,10 +235,16 @@
   (love.graphics.setColor 0.5 0.5 0.5)
   (for [row 1 *n-row*]
     (for [col 1 *n-col*]
-      (love.graphics.rectangle "line"
-                               (+ +margin+ (* (- col 1) *grid-size*))
-                               (+ +margin+ (* (- row 1) *grid-size*))
-                               48 48)))
+      (let [x (+ +margin+ (* (- col 1) *grid-size*))
+            y (+ +margin+ (* (- row 1) *grid-size*))]
+        (love.graphics.polygon "line"
+                               (+ x 24) (+ y 36)
+                               (+ x 48) (+ y 48)
+                               (+ x 24) (+ y 60)
+                               x        (+ y 48))
+        ;; (love.graphics.ellipse "line" (+ x 24) (+ y 48) 24 12)
+        ;; (love.graphics.rectangle "line" x y 48 48)
+        )))
   (love.graphics.setColor 1 1 1))
 
 (fn update [dt set-mode]
@@ -257,7 +273,7 @@
   (run-render-system)
 
   ;; HUD
-  (love.graphics.printf (get-level-title) 0 500 w :center)
+  (love.graphics.printf (or (get-level-title) "") 0 550 w :center)
 
   (match *state*
     :level-cleared
