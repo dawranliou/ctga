@@ -191,7 +191,7 @@
                      "data/tut-1.txt" "data/tut-2.txt"
                      "data/tut-2.txt" "data/level-1.txt"
                      "data/level-1.txt" "data/level-2.txt"
-                     ;; "data/level-2.txt" "data/level-3.txt"
+                     "data/level-2.txt" "data/level-3.txt"
                      ;; "data/level-3.txt" "data/level-4.txt"
                      ;; "data/level-4.txt" "data/level-5.txt"
                      ;; "data/level-5.txt" "data/level-6.txt"
@@ -223,9 +223,9 @@
   (match *current-level*
     "data/tut-1.txt" "→"
     "data/tut-2.txt" "→ →"
-    "data/level-1.txt" nil
-    "data/level-2.txt" nil
-    "data/level-3.txt" nil
+    "data/level-1.txt" "One for All"
+    "data/level-2.txt" "One More Step"
+    "data/level-3.txt" "R to Restart"
     "data/level-4.txt" nil
     "data/level-5.txt" nil
     "data/level-6.txt" nil
